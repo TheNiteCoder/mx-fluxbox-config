@@ -1,29 +1,51 @@
 #ifndef TAB_H
 #define TAB_H
 
-#include <QString>
+#include <QObject>
 #include <QIcon>
 #include <QWidget>
+#include <QTabWidget>
 
 #include "fluxboxsource.h"
+#include "debug.h"
 
-class Tab
+class Tab : public QObject
 {
+    Q_OBJECT
 public:
-    Tab(QString name, QIcon icon = QIcon());
-    virtual ~Tab();
+    explicit Tab(const QString name, const QIcon icon = QIcon(), QObject *parent = nullptr);
+    Tab(Tab& copy);
+    Tab(Tab&& move);
+    Tab& operator = (Tab& copy);
+    Tab& operator = (Tab&& move);
+    ~Tab();
+    Tab& setName(const QString name);
+    QString name();
+    Tab& setIcon(const QIcon icon);
+    QIcon icon();
+    Tab& setWidget(QWidget* widget);
     QWidget* widget();
-    void setWidget(QWidget* widget);
-    QString name() const;
-    QIcon icon() const;
-    virtual void setup(FluxboxSource::Files source) = 0;
-    virtual void apply(FluxboxSource::Files& source) = 0;
-signals:
-    void needsApply();
+
+    virtual void setup(FluxboxSource source) = 0;
+    virtual void apply(FluxboxSource& source) = 0;
+
 private:
-    QWidget* m_widget;
     QString m_name;
     QIcon m_icon;
+    QWidget* m_widget;
+};
+
+class TabManager : public QObject
+{
+    Q_OBJECT
+public:
+    TabManager(QList<Tab*> tabs = QList<Tab*>(), QTabWidget* tabWidget = nullptr, QObject* parent = nullptr);
+    void registerTab(Tab* tab);
+    void setup(FluxboxSource source);
+    void apply(FluxboxSource& source);
+    void setupTabWidget(QTabWidget* tabWidget);
+private:
+    QList<Tab*> m_tabs;
 };
 
 #endif // TAB_H

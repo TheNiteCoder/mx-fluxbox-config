@@ -5,7 +5,6 @@
 ### C++ ###
 # Prerequisites
 *.d
-
 # Compiled Object files
 *.slo
 *.lo
@@ -112,3 +111,5 @@ compile_commands.json
 *.cxxflags
 *.cflags
 # End of https://www.toptal.com/developers/gitignore/api/qtcreator,qt,c++
+
+*sync-conflict*

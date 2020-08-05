@@ -1,6 +1,6 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2020-07-07T23:01:27
+# Project created by QtCreator 2020-07-09T17:35:51
 #
 #-------------------------------------------------
 
@@ -27,21 +27,44 @@ CONFIG += c++11
 SOURCES += \
         main.cpp \
         window.cpp \
-    tab.cpp \
+        tab.cpp \
     fluxboxsource.cpp \
-    keystab.cpp
+    keystab.cpp \
+    menutab.cpp \
+    mousebuttonselector.cpp \
+    fluxboxkeysequence.cpp \
+    fluxboxkeysequenceedit.cpp \
+    fluxboxkeysstream.cpp \
+    fluxboxcommands.cpp \
+    fluxboxmenuitem.cpp \
+    fluxboxmenumodel.cpp
 
 HEADERS += \
         window.h \
-    tab.h \
+        tab.h \
     fluxboxsource.h \
-    keystab.h
+    keystab.h \
+    debug.h \
+    global.h \
+    menutab.h \
+    mousebuttonselector.h \
+    fluxboxkeysequence.h \
+    fluxboxkeysequenceedit.h \
+    fluxboxkeysstream.h \
+    fluxboxcommands.h \
+    fluxboxmenuitem.h \
+    fluxboxmenumodel.h
 
 FORMS += \
         window.ui \
-    keystab.ui
+    keystab.ui \
+    menutab.ui \
+    keysequencesedit.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    resource.qrc

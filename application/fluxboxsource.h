@@ -2,15 +2,8 @@
 #define FLUXBOXSOURCE_H
 
 #include <QString>
-#include <QMap>
 #include <QDir>
-
-namespace path
-{
-
-QString join(QString p1, QString p2);
-
-}
+#include <QMap>
 
 class FluxboxSource
 {
@@ -19,13 +12,14 @@ public:
     {
         QString keys;
     };
+    static QString pathJoin(QString p1, QString p2);
     FluxboxSource(QString dir = QString());
-    QString dir() const;
-    void setDir(QString dir = QString());
-    Files read();
-    void write(Files files);
+    void write();
+    QString& operator[](QString name);
 private:
+    QString read(QString name) const;
     QString m_dir;
+    QMap<QString, QString> m_files;
 };
 
 #endif // FLUXBOXSOURCE_H
